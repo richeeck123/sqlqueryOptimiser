@@ -4,7 +4,7 @@ SQL Query Optimiser is a lightweight, high-performance relational database query
 
 ---
 
-## 🧠 Core Architecture & Engine Features
+##  Core Architecture & Engine Features
 
 The system simulates the lifecycle of a query from raw string input down to pipelined in-memory data processing, matching modern RDBMS kernel architectures:
 
@@ -31,7 +31,7 @@ graph TD
 ```
 ---
 
-## 📂 Directory Structure
+##  Directory Structure
 
 <pre>
 QueryOptimizer/
@@ -78,7 +78,7 @@ QueryOptimizer/
 
 ---
 
-## 💼 Resume Highlights
+##  Resume Highlights
 
 * **Built a SQL query optimiser in modern C++ from scratch**, demonstrating deep understanding of internal relational database systems.
 * **Implemented System-R style dynamic programming join enumeration**, evaluating permutations to find globally minimal evaluation costs.
@@ -90,7 +90,7 @@ QueryOptimizer/
 
 ---
 
-## 🎯 Benchmark Workloads
+##  Benchmark Workloads
 
 SQL Query Optimiser validates its optimisations against strict relational algebra permutations:
 
@@ -112,7 +112,7 @@ SQL Query Optimiser validates its optimisations against strict relational algebr
 
 ---
 
-## 🚀 Performance Showcase: Multi-Join Optimisation
+## Performance Showcase: Multi-Join Optimisation
 
 The **Multi-Join Cost Optimisation** benchmark evaluates the effectiveness of the complete compiler pipeline on a complex three-table join containing qualified alias predicates. 
 
@@ -138,7 +138,7 @@ This immense cardinality reduction represents the compounded successes of:
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+##  Tech Stack & Dependencies
 
 * **Systems Core:** C++17 (or higher), CMake Compiler Toolchain
 * **Data Serialization:** `nlohmann/json` configuration parser
@@ -147,7 +147,7 @@ This immense cardinality reduction represents the compounded successes of:
 
 ---
 
-## 🏃‍♂️ Setup & Execution Sequence
+##  Setup & Execution Sequence
 
 Follow these exact steps sequentially from your terminal to launch the full-stack system layout cleanly:
 
@@ -171,7 +171,7 @@ Now, open a completely new terminal tab or console context window within the sam
 # 4. Open the dynamic visualization interface console in your browser
 start optimizer_dashboard.html
 
-## 📊 Testing the Engine Components
+##  Testing the Engine Components
 Once the dashboard loads into Google Chrome or Edge, you can evaluate the dynamic heuristics and Volcano execution passes by copying these test scenarios into the Interactive SQL Input Console:
 
 Dynamic Parser Evaluation:
@@ -181,7 +181,7 @@ Multi-Table Optimisation Pipeline:
 rs.name, products.name FROM orders JOIN users ON orders.user_id = users.id JOIN products ON orders.product_id = products.id WHERE orders.total > 4000
 
 
-Click Run Live Optimisation ⚡ to see cost models, query evaluation plans, and real-time execution rows rendered instantly without blocking the browser interface pipeline.
+Click Run Live Optimisation  to see cost models, query evaluation plans, and real-time execution rows rendered instantly without blocking the browser interface pipeline.
 
 
 ## Limitations :
