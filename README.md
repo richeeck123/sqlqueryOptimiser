@@ -16,19 +16,6 @@ The system simulates the lifecycle of a query from raw string input down to pipe
 * **6. Physical Operator Selection:** Safely lowers logical nodes into physical counterparts based on relational statistics. It actively compares algorithmic costs to select optimal operators, such as favoring **Hash Joins** over **Nested Loop Joins** when applicable.
 * **7. Interactive Optimisation Dashboard:** An asynchronous IPC bridge server connects the C++ subsystem with a responsive visual web dashboard using a concurrent zero-dependency Python connection microservice.
 
-## 📄 Technical Paper
-
-The complete IEEE-style technical paper for **SQL Query Optimiser** documents the system architecture, SQL parsing pipeline, rule-based and cost-based optimisation algorithms, complexity analysis, benchmarking methodology, experimental evaluation, limitations, and future work.
-
-<p align="center">
-    <img src="SQL_Query_Optimiser.png" alt="SQL Query Optimiser Technical Paper" width="680">
-</p>
-
-<p align="center">
-  <a href="SQL_Query_Optimiser_Paper.pdf">
-    <strong>📄 Open the Full Technical Paper (PDF)</strong>
-  </a>
-</p>
 
 
 ### Optimiser Architecture Pipeline
