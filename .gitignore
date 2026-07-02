@@ -1,0 +1,6 @@
+build/
+.cache/
+*.user
+.vs/
+LICENSE
+build/_deps/

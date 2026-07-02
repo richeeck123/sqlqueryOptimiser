@@ -1,0 +1,100 @@
+{
+  "tables": [
+    {
+      "name": "users",
+      "row_count": 100000,
+      "primary_key": "id",
+      "columns": [
+        { "name": "id",   "type": "int",    "has_index": true, "distinct_count": 100000 },
+        { "name": "name", "type": "string", "has_index": false },
+        { "name": "age",  "type": "int",    "has_index": false, "histogram": [
+          {"min": 0,  "max": 25, "count": 20000},
+          {"min": 26, "max": 45, "count": 50000},
+          {"min": 46, "max": 100, "count": 30000}
+        ]}
+      ]
+    },
+    {
+      "name": "orders",
+      "row_count": 1000000,
+      "primary_key": "id",
+      "columns": [
+        { "name": "id",      "type": "int",    "has_index": true, "distinct_count": 1000000 },
+        { "name": "user_id", "type": "int",    "has_index": false },
+        { "name": "total",   "type": "double", "has_index": false, "histogram": [
+          {"min": 0,    "max": 500,  "count": 600000},
+          {"min": 501,  "max": 1500, "count": 300000},
+          {"min": 1501, "max": 5000, "count": 100000}
+        ]}
+      ]
+    },
+    {
+      "name": "products",
+      "row_count": 50000,
+      "primary_key": "id",
+      "columns": [
+        { "name": "id",       "type": "int",    "has_index": true, "distinct_count": 50000 },
+        { "name": "name",     "type": "string", "has_index": false },
+        { "name": "price",    "type": "double", "has_index": false, "histogram": [
+          {"min": 0,   "max": 100,  "count": 20000},
+          {"min": 101, "max": 500,  "count": 20000},
+          {"min": 501, "max": 2000, "count": 10000}
+        ]},
+        { "name": "order_id", "type": "int",    "has_index": false }
+      ]
+    },
+    {
+      "name": "Employees",
+      "row_count": 10000,
+      "primary_key": "employee_id",
+      "columns": [
+        { "name": "employee_id", "type": "int", "has_index": true, "distinct_count": 10000 },
+        { "name": "name", "type": "string", "has_index": false },
+        { "name": "employee_name", "type": "string", "has_index": false },
+        { "name": "salary", "type": "double", "has_index": false },
+        { "name": "department_id", "type": "int", "has_index": false },
+        { "name": "hire_date", "type": "string", "has_index": true, "distinct_count": 1000 }
+      ]
+    },
+    {
+      "name": "Customers",
+      "row_count": 50000,
+      "primary_key": "customer_id",
+      "columns": [
+        { "name": "customer_id", "type": "int", "has_index": true, "distinct_count": 50000 },
+        { "name": "name", "type": "string", "has_index": false },
+        { "name": "customer_name", "type": "string", "has_index": false },
+        { "name": "city", "type": "string", "has_index": false }
+      ]
+    },
+    {
+      "name": "Orders",
+      "row_count": 100000,
+      "primary_key": "order_id",
+      "columns": [
+        { "name": "order_id", "type": "int", "has_index": true, "distinct_count": 100000 },
+        { "name": "customer_id", "type": "int", "has_index": true, "distinct_count": 50000 },
+        { "name": "order_date", "type": "string", "has_index": true, "distinct_count": 1000 },
+        { "name": "amount", "type": "double", "has_index": false }
+      ]
+    },
+    {
+      "name": "Users",
+      "row_count": 100000,
+      "primary_key": "id",
+      "columns": [
+        { "name": "id", "type": "int", "has_index": true, "distinct_count": 100000 },
+        { "name": "email", "type": "string", "has_index": true, "distinct_count": 100000 },
+        { "name": "phone", "type": "string", "has_index": true, "distinct_count": 100000 }
+      ]
+    },
+    {
+      "name": "TerminatedEmployees",
+      "row_count": 1000,
+      "primary_key": "employee_id",
+      "columns": [
+        { "name": "employee_id", "type": "int", "has_index": true, "distinct_count": 1000 }
+      ]
+    }
+  ]
+}
