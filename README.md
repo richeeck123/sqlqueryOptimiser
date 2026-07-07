@@ -18,7 +18,7 @@ graph TD
 ```
 ---
 
-## 📂 Directory Structure
+##  Directory Structure
 
 <pre>
 QueryOptimizer/
