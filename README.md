@@ -20,12 +20,7 @@ The system simulates the lifecycle of a query from raw string input down to pipe
 
 The complete IEEE-style technical paper for **SQL Query Optimiser** documents the system architecture, SQL parsing pipeline, rule-based and cost-based optimisation algorithms, complexity analysis, benchmarking methodology, experimental evaluation, limitations, and future work.
 
-<p align="center">
-    <img src="SQL_Query_Optimiser.png" alt="SQL Query Optimiser Technical Paper" width="680">
-</p>
 
-<p align="center">
-  <a href="SQL_Query_Optimiser_Paper.pdf">
     <strong>📄 Open the Full Technical Paper (PDF)</strong>
   </a>
 </p>
