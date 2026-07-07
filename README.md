@@ -166,6 +166,6 @@ The parser supports a core subset of SQL focused on SELECT, FROM, WHERE, JOIN, A
 
 
 
-12) Educational Cost Model
+ Educational Cost Model
 
 The implemented cost model is intended for educational purposes and demonstration of query optimisation concepts. It does not account for many real-world factors including memory availability, CPU cache behavior, disk I/O patterns, parallel execution, network transfer costs, buffer pool management, or adaptive query execution.
