@@ -4,27 +4,6 @@ SQL Query Optimiser is a lightweight, high-performance relational database query
 
 ---
 
-## 🧠 Core Architecture & Engine Features
-
-The system simulates the lifecycle of a query from raw string input down to pipelined in-memory data processing, matching modern RDBMS kernel architectures:
-
-* **1. SQL Parsing:** A robust parser that generates Abstract Syntax Trees (AST) from raw SQL strings. It handles alias binding, compound `WHERE` predicates, and `JOIN ... ON` structures, binding them securely against catalog schema metadata defined in `schema.json`.
-* **2. Logical Plan Construction:** Translates the parsed AST into relational algebraic execution operators (Scans, Filters, Joins, Projects), acting as the baseline unoptimised logical plan.
-* **3. Rule-Based Optimiser (RBO):** Implements heuristic rewrites such as **Predicate Pushdown** and alias-based column ownership resolution. It structurally filters out unneeded tuples early in the pipeline before heavy join layers, reducing cardinality exponentially.
-* **4. Cost-Based Optimiser (CBO) & System-R:** Evaluates alternative physical plan configurations using **System-R style dynamic programming join enumeration**. The engine evaluates multiple join topologies and calculates costs using a dynamically updated subset sizing matrix.
-* **5. Cardinality Estimation & Cost Model:** Integrates database catalog metadata (table sizes, uniqueness, histograms) with selectivity formulas to assign precise memory read/write row costs to algebraic configurations.
-* **6. Physical Operator Selection:** Safely lowers logical nodes into physical counterparts based on relational statistics. It actively compares algorithmic costs to select optimal operators, such as favoring **Hash Joins** over **Nested Loop Joins** when applicable.
-* **7. Interactive Optimisation Dashboard:** An asynchronous IPC bridge server connects the C++ subsystem with a responsive visual web dashboard using a concurrent zero-dependency Python connection microservice.
-
-## 📄 Technical Paper
-
-The complete IEEE-style technical paper for **SQL Query Optimiser** documents the system architecture, SQL parsing pipeline, rule-based and cost-based optimisation algorithms, complexity analysis, benchmarking methodology, experimental evaluation, limitations, and future work.
-
-
-    <strong>📄 Open the Full Technical Paper (PDF)</strong>
-  </a>
-</p>
-
 
 ### Optimiser Architecture Pipeline
 
@@ -86,41 +65,7 @@ QueryOptimizer/
 
 ---
 
-## 💼 Resume Highlights
-
-* **Built a SQL query optimiser in modern C++ from scratch**, demonstrating deep understanding of internal relational database systems.
-* **Implemented System-R style dynamic programming join enumeration**, evaluating permutations to find globally minimal evaluation costs.
-* **Developed predicate pushdown and join reordering passes**, securely resolving SQL aliases and shifting filters below heavy relational algebra operations.
-* **Added cardinality estimation and cost-based plan selection**, dynamically calculating memory footprints and row processing costs via histogram statistics.
-* **Implemented Hash Join and Nested Loop Join physical operators**, allowing the engine to adapt physical query structures based on relational constraints.
-* **Achieved up to 95% reduction in estimated execution cost** on analytical workloads through verified cost modeling tests.
-* **Built an interactive dashboard for plan visualization** bridging C++ backends with a Python microservice to render complex JSON trace trees visually.
-
----
-
-## 🎯 Benchmark Workloads
-
-SQL Query Optimiser validates its optimisations against strict relational algebra permutations:
-
-1. **3-Table Complex Star Join**
-   - **Feature Tested:** Cost model robustness on multi-edge star schemas.
-   - **Why It's Useful:** Ensures that varying inner loop layouts appropriately influence the global dynamic programming matrix.
-2. **Heavy Scan Analytical Evaluation**
-   - **Feature Tested:** Algorithmic physical selection (`Nested Loop` vs `Hash Join`).
-   - **Why It's Useful:** Proves the CBO correctly avoids Cartesian explosions when cardinality dictates a Hash Join requirement.
-3. **Data Boundary Scan**
-   - **Feature Tested:** High-selectivity filter analysis.
-   - **Why It's Useful:** Ensures the parser and logical planner accurately construct boundary boundaries for index-scan potential.
-4. **Semantic Rewrite (OR → UNION)**
-   - **Feature Tested:** Rule-Based Optimisation (RBO) logic rewrites.
-   - **Why It's Useful:** Expands disjointed sets conceptually before execution to eliminate massive inline evaluation branches.
-5. **Multi-Join Cost Optimisation**
-   - **Feature Tested:** Complete pipeline (Alias Resolution + Predicate Pushdown + Join Reordering).
-   - **Why It's Useful:** The ultimate correctness validation—verifies that fully qualified conditions push deeply into logical scans, radically minimizing inner loop boundaries.
-
----
-
-## 🚀 Performance Showcase: Multi-Join Optimisation
+##  Performance Showcase: Multi-Join Optimisation
 
 The **Multi-Join Cost Optimisation** benchmark evaluates the effectiveness of the complete compiler pipeline on a complex three-table join containing qualified alias predicates. 
 
@@ -146,7 +91,7 @@ This immense cardinality reduction represents the compounded successes of:
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+##  Tech Stack & Dependencies
 
 * **Systems Core:** C++17 (or higher), CMake Compiler Toolchain
 * **Data Serialization:** `nlohmann/json` configuration parser
@@ -155,7 +100,7 @@ This immense cardinality reduction represents the compounded successes of:
 
 ---
 
-## 🏃‍♂️ Setup & Execution Sequence
+##  Setup & Execution Sequence
 
 Follow these exact steps sequentially from your terminal to launch the full-stack system layout cleanly:
 
@@ -179,7 +124,7 @@ Now, open a completely new terminal tab or console context window within the sam
 # 4. Open the dynamic visualization interface console in your browser
 start optimizer_dashboard.html
 
-## 📊 Testing the Engine Components
+##  Testing the Engine Components
 Once the dashboard loads into Google Chrome or Edge, you can evaluate the dynamic heuristics and Volcano execution passes by copying these test scenarios into the Interactive SQL Input Console:
 
 Dynamic Parser Evaluation:
@@ -189,55 +134,37 @@ Multi-Table Optimisation Pipeline:
 rs.name, products.name FROM orders JOIN users ON orders.user_id = users.id JOIN products ON orders.product_id = products.id WHERE orders.total > 4000
 
 
-Click Run Live Optimisation ⚡ to see cost models, query evaluation plans, and real-time execution rows rendered instantly without blocking the browser interface pipeline.
+Click Run Live Optimisation  to see cost models, query evaluation plans, and real-time execution rows rendered instantly without blocking the browser interface pipeline.
 
 
 ## Limitations :
 While SQL Query Optimiser implements several real-world query optimisation techniques such as Predicate Pushdown, Rule-Based Optimisation (RBO), Dynamic Programming Cost-Based Optimisation (CBO), Join Reordering, and Physical Operator Selection, the current version focuses on a simplified subset of SQL and does not support all features found in production database systems.
 
-1) Self-Join Support
+ Self-Join Support
 
 Self-joins are not currently supported. The optimizer resolves table aliases to their underlying base table names during optimisation, which causes multiple references to the same table to be treated as a single relation. This can lead to incorrect predicate ownership, join graph construction, predicate pushdown decisions, and SQL reconstruction. Queries that join the same table multiple times using aliases should be avoided.
 
-2) Join Type Support
-
-Only INNER JOIN operations are supported. Other join types, including LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN, CROSS JOIN, and NATURAL JOIN, are not currently handled by the optimizer and may result in incorrect behavior or parsing failures.
-
-3) Subquery Optimisation
-
-The optimizer does not perform subquery flattening, decorrelation, or predicate propagation into nested queries. Subqueries are treated as independent structures and are not optimised beyond basic parsing.
-
-4) Correlated Subqueries
-
-Correlated subqueries are not supported. Features such as EXISTS optimisation, semi-join conversion, and correlation analysis have not been implemented.
-
-5) Aggregation Optimisation
+ Aggregation Optimisation
 
 Optimisation techniques involving GROUP BY, HAVING, and aggregate functions such as COUNT, SUM, AVG, MIN, and MAX are not implemented. Aggregate pushdown and partial aggregation strategies are outside the scope of the current system.
 
-6) ORDER BY Optimisation
+ ORDER BY Optimisation
 
 Queries containing ORDER BY clauses are not optimised. The optimizer does not perform sort elimination, index-aware ordering, or Top-N optimisations.
 
-7) Index-Aware Cost Estimation
+ Index-Aware Cost Estimation
 
 The cost model assumes scan-based execution and does not consider the presence of indexes. B+ Trees, hash indexes, covering indexes, and clustered indexes are not incorporated into cost estimation. As a result, estimated costs may differ from those produced by a real database system.
 
-8) Simplified Cardinality Estimation
+ Simplified Cardinality Estimation
 
 Cardinality estimation is based on simplified selectivity assumptions and does not use histograms, column statistics, or correlation information. Predicates are generally assumed to be independent, which may lead to inaccurate cost estimates for complex queries.
 
-9) Limited Join Predicate Classification
-
-The optimizer does not fully distinguish between equi-joins, range joins, and general theta joins when selecting execution strategies. Join algorithms are chosen using simplified heuristics rather than predicate-specific cost models.
-
-10) Limited SQL Grammar Coverage
+ Limited SQL Grammar Coverage
 
 The parser supports a core subset of SQL focused on SELECT, FROM, WHERE, JOIN, AND, and OR clauses. Advanced SQL features such as UNION ALL, INTERSECT, EXCEPT, Common Table Expressions (CTEs), window functions, CASE expressions, and DISTINCT are not currently supported.
 
-11) SQL Reconstruction Readability
 
-The SQL reconstruction phase prioritizes correctness over readability. Optimised queries may contain deeply nested subqueries and generated aliases that are more verbose than equivalent hand-written SQL. Although the generated SQL remains logically correct, it may not always be presented in the most concise form.
 
 12) Educational Cost Model
 
