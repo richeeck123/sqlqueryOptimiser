@@ -93,7 +93,7 @@ This immense cardinality reduction represents the compounded successes of:
 
 ##  Tech Stack & Dependencies
 
-* **Systems Core:** C++17 (or higher), CMake Compiler Toolchain
+* **Systems Core:** C++17 (or higher)
 * **Data Serialization:** `nlohmann/json` configuration parser
 * **Microservice Intercept:** Python 3 (Native HTTP & Subprocess runtime)
 * **Frontend Interface:** Modern Glassmorphic Dashboard (HTML5, Vanilla CSS3, Async Fetch API)
